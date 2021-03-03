@@ -1,0 +1,42 @@
+<mat-sidenav-container class="sidenav-container" (backdropClick)="drawer.close()">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <app-sidenav></app-sidenav>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar class="top-toolbar" color="primary">
+            <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <a routerLink="/" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" class="logo"
+                        ngClass.xs="mobile">
+                        <img src="../../../../assets/logos/logo.png" alt="logo">
+                        <span>iGrab</span>
+                    </a>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start center" class="w-100">
+                    <button *ngIf="isHandset$ | async" type="button" aria-label="toggle sidenav" mat-icon-button
+                        (click)="drawer.toggle()">
+                        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+                    </button>
+                </div>
+
+                <div fxFlex fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+                    <button type="button" aria-label="notification button" mat-icon-button>
+                        <mat-icon matBadge="15" matBadgeColor="warn" aria-label="notification icon">
+                            notifications
+                        </mat-icon>
+                    </button>
+                    <app-user-menu></app-user-menu>
+                </div>
+            </div>
+
+        </mat-toolbar>
+        <div class="dash-content">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+<div class="app-footer" fxLayout="row wrap" fxLayoutAlign="center center">
+    2020 iGrab Admin Web App
+</div>

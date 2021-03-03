@@ -1,0 +1,78 @@
+@import "../../../../styles/variables";
+
+.menu-expand-icon {
+  position: absolute;
+  right: 10px;
+  top: 7px;
+}
+
+.menu-item {
+  .mat-flat-button {
+    margin-bottom: 18px;
+    padding: 0;
+    background: none !important;
+    padding-left: 12px;
+    width: 100%;
+    font-weight: 600;
+    border-radius: 0;
+    font-size: 16px;
+    -webkit-transition: background 0.3s; /* For Safari 3.0 to 6.0 */
+    transition: background 0.3s; /* For modern browsers */
+    color: #1a237e !important;
+    font-family: "Open Sans", sans-serif;
+    .menu-icon {
+      margin-right: 12px;
+      padding: 7px;
+      border-radius: 50%;
+    }
+    &.expanded {
+      .menu-expand-icon {
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        transform: rotate(180deg);
+      }
+    }
+  }
+  .mat-flat-button-wrapper {
+    padding-left: 16px;
+  }
+  .mat-flat-button:hover {
+    color: #151c65 !important;
+  }
+  .active-menu {
+    padding-left: 6px !important;
+    border-left: 6px solid yellow !important;
+    &:hover {
+      background: none !important;
+    }
+  }
+}
+
+.sub-menu {
+  .menu-item {
+    margin-bottom: 0px;
+    .active-menu {
+      padding-left: 44px !important;
+    }
+  }
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transition: max-height 0.25s ease-out;
+  -moz-transition: max-height 0.25s ease-out;
+  transition: max-height 0.25s ease-out;
+  .mat-flat-button {
+    padding-left: 50px;
+  }
+  &.show {
+    max-height: 900px;
+    -webkit-transition: max-height 0.25s ease-in;
+    -moz-transition: max-height 0.25s ease-in;
+    transition: max-height 0.25s ease-in;
+  }
+}
+.sub-menu-font {
+  .mat-flat-button {
+    font-size: 14px !important;
+    font-weight: 400 !important;
+  }
+}

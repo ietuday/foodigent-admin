@@ -1,0 +1,40 @@
+@media screen and (max-width: 960px) {
+  .app-nav-logo {
+    img {
+      width: 64px !important;
+    }
+  }
+
+  .mat-toolbar {
+    margin-left: 0px !important;
+  }
+
+  .app-small-btn[class] {
+    padding: 0px 12px !important;
+  }
+
+  .mat-drawer-backdrop,
+  mat-sidenav {
+    z-index: 1000 !important;
+  }
+
+  mat-header-cell {
+    width: 100%;
+    padding: 0 6px;
+  }
+
+  mat-cell {
+    width: 100%;
+    padding: 6px 6px;
+  }
+
+  .email-cell {
+    padding-right: 100px !important;
+  }
+}
+
+@media screen and (max-height: 768px) {
+  // .right-container{
+  //   height: max-content !important;
+  // }
+}

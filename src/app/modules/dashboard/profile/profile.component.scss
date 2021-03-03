@@ -1,0 +1,100 @@
+@import "../../../styles/variables.scss";
+
+.profile-page {
+  // 100vh device height
+  // 56px top toolbar height
+  // 24px bottom toolbar height
+  // height: calc(100vh - 56px);
+  // padding: 12px;
+  margin: 12px;
+  box-shadow: 0px 3px 6px #00000029;
+
+  .profile-section {
+    padding: 12px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    .section-heading {
+      font-family: $app-century-bold;
+      font-size: 24px;
+      letter-spacing: 0px;
+      font-weight: bold;
+      color: #191919;
+      margin: 6px 0 12px 0;
+    }
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  .edit-profile-button {
+    text-align: center;
+    padding: 0px !important;
+  }
+
+  .user-profile-row {
+    margin-bottom: 40px !important;
+  }
+
+  .profile-photo {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+  }
+
+  .edit-fab {
+    margin-left: -40px;
+    background: #1a237e;
+    color: white;
+    width: 34px;
+    height: 34px;
+    margin-top: 70px;
+  }
+
+  .upload-attachments {
+    height: 100px;
+    border: dashed 1.5px rgba(0, 0, 0, 0.12);
+    background: #f0f0f0 !important;
+    color: rgba(0, 0, 0, 0.6);
+
+    .add-file-label {
+      color: #5c6bc0;
+      cursor: pointer;
+      &:hover {
+        color: #1a237e !important;
+      }
+    }
+
+    mat-icon {
+      width: 16px;
+      font-size: 14px;
+      line-height: unset !important;
+    }
+  }
+
+  .file-upload-tips {
+    color: rgba(0, 0, 0, 0.38);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .file-list-item {
+    height: 56px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 18px;
+
+    .file-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      a {
+        color: rgba(0, 0, 0, 0.87) !important;
+        text-decoration: none !important;
+      }
+    }
+  }
+}

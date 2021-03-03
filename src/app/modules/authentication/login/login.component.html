@@ -1,0 +1,61 @@
+<div [@fadeInAnimation] fxLayout="column" fxLayoutAlign="start stretch">
+
+    <div class="auth-page-heading" fxLayout="row" fxLayoutAlign="center center">
+        <label>
+            Please log in to your account
+        </label>
+    </div>
+
+    <form [formGroup]="loginForm" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="abc@email.com" formControlName="email" type="text" />
+            <mat-error *ngIf="loginForm?.get('email')?.touched || loginForm?.get('email')?.dirty">
+                <mat-error *ngIf="loginForm?.get('email')?.hasError('required')">
+                    Email is required
+                </mat-error>
+                <mat-error *ngIf="loginForm?.get('email')?.hasError('pattern')">
+                    Please enter a valid email address
+                </mat-error>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput [type]="passwordHide ? 'password' : 'text'" placeholder="123456" formControlName="password"
+                type="password" />
+            <button mat-icon-button matSuffix aria-hidden="false" aria-label="Password Icon" type="button"
+                (click)="passwordHide = !passwordHide">
+                <mat-icon>{{ passwordHide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="loginForm?.get('password')?.touched || loginForm?.get('password')?.dirty">
+                <mat-error *ngIf="loginForm?.get('password')?.hasError('required')">
+                    Password is required
+                </mat-error>
+            </mat-error>
+        </mat-form-field>
+
+        <div>
+            <mat-error *ngIf="wrongPassword">
+                <mat-error>Email or Password is incorrect</mat-error>
+            </mat-error>
+            <mat-error *ngIf="userRemoved">
+                <mat-error>User removed</mat-error>
+            </mat-error>
+        </div>
+
+        <div class="check-box-row" fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <mat-checkbox color="primary" formControlName="rememberMe" class="remember">
+                Remember me
+            </mat-checkbox>
+            <a class="forgot-password-link" [routerLink]="['../forgot-password']">
+                Forgot Password
+            </a>
+        </div>
+
+        <div class="login-button" fxLayout="row" fxLayoutAlign="center center">
+            <button class="app-big-btn" mat-flat-button (click)="login()">Log in</button>
+        </div>
+    </form>
+
+</div>

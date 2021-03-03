@@ -1,0 +1,63 @@
+@import "~@angular/material/theming";
+@import "./variables.scss";
+
+$igrab-typography: mat-typography-config(
+  $font-family: $app-century-regular,
+);
+
+@include mat-core($igrab-typography);
+
+$igrab-primary-palette: (
+  50: rgb(115, 142, 153),
+  100: rgb(26, 108, 143),
+  APP_DARK_GRAY: #454544,
+  LIGHT_BLUE: #e5f8fe,
+  //Light blue
+  LIGHT_YELLOW: rgb(255, 237, 179),
+  //Light Yellow for Hover
+  500: #038dba,
+  //APP PRIMARY COLOR
+  APP_GRAY: #e5e5e5,
+  APP_BACKGROUND: #e5e5e5,
+  800: #00b6f1,
+  //APP ACCENT
+  APP_BLUE: #4036ac,
+  APP_PURPLE: #7a3cff,
+  A200: #31c1ff,
+  A400: rgb(192, 101, 169),
+  A700: rgb(187, 106, 0),
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    APP_DARK_GRAY: $black-87-opacity,
+    LIGHT_BLUE: white,
+    LIGHT_YELLOW: rgb(26, 35, 126),
+    500: white,
+    APP_GRAY: white,
+    APP_BACKGROUND: #e5e5e5,
+    800: white,
+    APP_BLUE: $white-87-opacity,
+    APP_PURPLE: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  ),
+);
+
+$igrab-theme-primary: mat-palette($igrab-primary-palette);
+$igrab-theme-accent: mat-palette($igrab-primary-palette, 800);
+$igrab-theme-warn: mat-palette($mat-red);
+
+$igrab-theme: mat-light-theme(
+  (
+    color: (
+      primary: $igrab-theme-primary,
+      accent: $igrab-theme-accent,
+      warn: $igrab-theme-warn,
+    ),
+  )
+);
+
+$accent: mat-color($igrab-theme-accent);
+
+@include angular-material-theme($igrab-theme);

@@ -1,0 +1,31 @@
+export class UserModel {
+    _id?: string;
+    firstName?: string;
+    lastName?: string;
+    userName?: string;
+    userId?: string;
+    description?: string;
+    email?: string;
+    password?: string;
+    type?: string;
+    country?: string;
+    city?: string;
+    phone?: string;
+    company?: string;
+    age?: string;
+    attachments?: Array<any>;
+    token?: string;
+    salt?: string;
+    reset_password_token?: string;
+    reset_password_expires?: number;
+    createdAt?: Date;
+    updatedAt?: Date;
+    lastLogin?: Date;
+    unseenNotification?: number;
+    isVerified?: boolean;
+    isLock?: boolean;
+    isDeleted?: boolean;
+    verificationToken?: string;
+    isAdmin?: boolean;
+    profileUrl?: string;
+}

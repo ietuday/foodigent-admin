@@ -1,0 +1,16 @@
+.warning-dialog {
+  padding: 0px 20px 20px 20px;
+  .title {
+    font-size: 26px;
+    font-weight: 600;
+    color: #5c6bc0;
+  }
+  .body {
+    font-size: 16px;
+    margin: 27px 0px 35px 0px;
+  }
+
+  .shenovi-close-icon {
+    margin-right: -20px !important;
+  }
+}

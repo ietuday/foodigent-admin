@@ -1,0 +1,69 @@
+<div fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="add-edit-merchandise-page" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="10px">
+        <div class="add-edit-section" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="12px">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="section-heading">{{ editMode ? 'Edit Merchandise' : 'Add Merchandise' }} - </span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <form [formGroup]="merchandiseForm" fxFlex="50" fxFlex.lt-sm="95" fxLayout="column"
+                    fxLayoutAlign="start stretch" fxLayoutGap="10px">
+
+                    <div class="user-profile-row" fxLayout="row" fxLayoutAlign="center center">
+                        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.lt-sm="center center">
+                            <img class="profile-photo"
+                                [src]="merchandise?.profileUrl ? merchandise?.profileUrl : 'assets/images/users/default-user.jpg'"
+                                alt="profile photo" />
+                            <button type="button" mat-mini-fab (click)="profilePic.click()" class="edit-fab">
+                                <mat-icon aria-label="Edit profile">add</mat-icon>
+                            </button>
+                        </div>
+                        <input #profilePic name="photo" fxShow="false" type="file"
+                            accept="image/png, image/jpeg, image/jpg" (change)="onProfilePicSelected($event.target)" />
+                    </div>
+
+                    <mat-form-field>
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="abc" formControlName="name" type="text" />
+                        <mat-error *ngIf="merchandiseForm?.get('name')?.touched || merchandiseForm?.get('name')?.dirty">
+                            <mat-error *ngIf="merchandiseForm?.get('name')?.hasError('required')">
+                                Name is required
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Description</mat-label>
+                        <input matInput placeholder="afgsafdshfgshfgsags" formControlName="description" type="text" />
+                        <mat-error
+                            *ngIf="merchandiseForm?.get('description')?.touched || merchandiseForm?.get('description')?.dirty">
+                            <mat-error *ngIf="merchandiseForm?.get('description')?.hasError('required')">
+                                Description is required
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Grabit Value</mat-label>
+                        <input matInput placeholder="143" formControlName="grabitValue" type="text" />
+                        <mat-error
+                            *ngIf="merchandiseForm?.get('grabitValue')?.touched || merchandiseForm?.get('grabitValue')?.dirty">
+                            <mat-error *ngIf="merchandiseForm?.get('grabitValue')?.hasError('required')">
+                                Grabit Value is required
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+                        <button type="button" mat-flat-button color="warn" (click)="cancel()">
+                            Cancel
+                        </button>
+                        <button mat-flat-button color="primary" type="button" (click)="onSubmit()">
+                            {{ editMode ? 'Edit' : 'Add' }}
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

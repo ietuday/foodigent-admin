@@ -1,0 +1,73 @@
+@import "../../../styles/variables.scss";
+
+.order-list-page {
+  // 100vh device height
+  // 56px top toolbar height
+  // 24px bottom toolbar height
+  // height: calc(100vh - 56px);
+  // padding: 12px;
+  margin: 12px;
+  box-shadow: 0px 3px 6px #00000029;
+
+  mat-header-cell,
+  mat-cell {
+    padding: 6px 6px;
+  }
+
+  .reward-section,
+  .orders-section {
+    padding: 12px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    .section-heading {
+      font-family: $app-century-bold;
+      font-size: 24px;
+      letter-spacing: 0px;
+      font-weight: bold;
+      color: #191919;
+      margin: 6px 0 12px 0;
+    }
+  }
+
+  .reward-section {
+    .mr1 {
+      margin: 6px 0;
+    }
+
+    .reward-heading {
+      font-family: $app-century-bold;
+      font-size: 18px;
+      letter-spacing: 0px;
+      font-weight: bold;
+      color: #191919;
+    }
+
+    .reward-value {
+      font-family: $app-century-bold;
+      font-size: 14px;
+      letter-spacing: 0px;
+      font-weight: bold;
+      color: #191919;
+    }
+  }
+
+  .product-img {
+    border-radius: 50% !important;
+    width: 60px !important;
+    height: 60px !important;
+    border: 2px solid rgba(0, 0, 0, 0.12);
+  }
+}
+
+table,
+.mat-table {
+  width: 100% !important;
+}
+
+@media (max-width: 800px) {
+  .order-list-table {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+  }
+}

@@ -1,0 +1,16 @@
+<div class="dialog-content" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="47px">
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="22px">
+        <div class="header" fxLayout="row wrap" fxLayoutAlign="center center">
+            {{ data.header }}
+        </div>
+        <div class="content" fxLayout="row wrap" fxLayoutAlign="center center">
+            {{ data.message }}
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+        <button *ngIf="data.firstButtonText" class="app-big-btn app-big-short-btn app-blank-btn" mat-button
+            mat-dialog-close (click)="dialogRef.close('no')">{{ data.firstButtonText }}</button>
+        <button class="app-big-btn app-big-short-btn" mat-button [mat-dialog-close]="true"
+            (click)="dialogRef.close('yes')" cdkFocusInitial>{{ data.secondButtonText }}</button>
+    </div>
+</div>

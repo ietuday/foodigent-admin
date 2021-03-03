@@ -1,0 +1,16 @@
+<div class="warning-dialog" fxLayout="column" fxLayoutAlign="start stretch">
+    <div fxLayout="row" fxLayoutAlign="end center">
+        <mat-icon class="shenovi-close-icon" (click)="dialogRef.close()">close</mat-icon>
+    </div>
+    <div class="greeting-msg" fxLayout="column" fxLayoutAlign="start start">
+        <span class="title">{{ data.title }}</span>
+        <div class="body">
+            {{ data.body }}
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center">
+        <button mat-flat-button class="shenovi-filled-button" (click)="success()">
+            {{ data.buttonText }}
+        </button>
+    </div>
+</div>

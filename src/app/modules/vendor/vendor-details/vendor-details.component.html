@@ -1,0 +1,77 @@
+<div fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="vendor-details-page" fxLayout="column" fxLayoutAlign="space-between stretch">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="16px">
+            <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="12px">
+                <span *ngFor="let category of categories" class="chip"
+                    [ngClass]="{'selected-chip' : category.value == selectedCategory }"
+                    (click)="onCategorySelect(category.value)">{{ category.name }}</span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayout.lt-md="column" fxLayoutAlign.lt-md="start stretch"
+                fxLayoutGap="16px" class="date-range-picker-section">
+                <app-select [selectedValue]="selectedFilterData" [options]="filterTypes"
+                    (onSelectionChange)="onFilterSelected($event)"></app-select>
+                <app-date-range-picker [data]="data" (onValueChange)="onDateRangeChange($event)">
+                </app-date-range-picker>
+            </div>
+            <div class="order-list-table">
+                <mat-table mat-table [dataSource]="vendorOrders">
+
+                    <ng-container matColumnDef="profile">
+                        <mat-header-cell *matHeaderCellDef>profile</mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <img class="order-img" src="../../../../assets/images/avatars/avatar-3.png"
+                                alt="order-image">
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef>name</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="desc">
+                        <mat-header-cell *matHeaderCellDef>desc</mat-header-cell>
+                        <mat-cell *matCellDef="let element" [matTooltip]="element.desc" matTooltipPosition="above">
+                            {{element.desc | truncate : 25}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="date">
+                        <mat-header-cell *matHeaderCellDef>date</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{ date | date : 'mediumDate'}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="payment">
+                        <mat-header-cell *matHeaderCellDef>payment</mat-header-cell>
+                        <mat-cell *matCellDef="let element;let i=index"> {{ (i%2 == 0) ? 'Success' : 'Failed' }}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef>action</mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="row wrap" fxLayoutAlign="start center"
+                            fxLayoutGap="5px">
+                            <button mat-icon-button matTooltip="View order Details" matTooltipPosition="above"
+                                (click)="goToOrderDetailsPage(element._id)">
+                                <mat-icon aria-label="visibility icon">visibility
+                                </mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="export to invoice" matTooltipPosition="above"
+                                (click)="exportToInvoice(element._id)">
+                                <mat-icon aria-label="export icon">file_copy</mat-icon>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="vendorOrdersDisplayedColumns"></mat-header-row>
+                    <mat-row mat-row *matRowDef="let row; columns: vendorOrdersDisplayedColumns;"></mat-row>
+                </mat-table>
+            </div>
+        </div>
+        <div>
+            <mat-paginator #vendorOrdersPaginator (page)="getNewOrders($event)" [length]="vendorOrdersCollectionSize"
+                [pageSize]="vendorOrdersPageSize" hidePageSize="true" [pageIndex]="vendorOrdersPageIndex"
+                showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+</div>

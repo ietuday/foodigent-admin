@@ -1,0 +1,174 @@
+<div fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="customer-details-page" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="10px">
+        <div class="user-info-section" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="12px">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="section-heading">Customer Details - </span>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="12px">
+                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
+                    <img class="profile-photo"
+                        [src]="customer?.profileUrl ? customer?.profileUrl : 'assets/images/avatars/avatar-1.png'"
+                        alt="profile photo" />
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+                    <span fxFlex="50" class="customer-name">Abcdefgh Gplwaw</span>
+                    <span fxFlex="50" class="username">asdfghghj@gmail.com</span>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+                    <span fxFlex="50" class="customer-name">23-12-2009</span>
+                    <span fxFlex="50" class="username">Swargate Pune</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="cash-reward-section" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="12px">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="section-heading">Cash Reward Details - </span>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+                <div>
+                    <span class="cash-reward-heading">Total value of all orders : </span><span
+                        class="cash-reward-value">
+                        {{ 123456 | currency }}
+                    </span>
+                </div>
+                <div>
+                    <span class="cash-reward-heading">Cash reward value redeemed : </span><span
+                        class="cash-reward-value">
+                        {{ 5678 | currency }}
+                    </span>
+                </div>
+                <div>
+                    <span class="cash-reward-heading">Net position : </span><span class="cash-reward-value">143</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="igrab-offers-section" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="12px">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="section-heading">iGrab Offers Details - </span>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="start stretch">
+                <div class="product-list-table">
+                    <mat-table mat-table [dataSource]="offers">
+                        <ng-container matColumnDef="image">
+                            <mat-header-cell *matHeaderCellDef>image</mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                <img class="product-img" src="../../../../assets/images/users/michael.jpg"
+                                    alt="product-image">
+                            </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="name">
+                            <mat-header-cell *matHeaderCellDef>name</mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="prize">
+                            <mat-header-cell *matHeaderCellDef>prize</mat-header-cell>
+                            <mat-cell *matCellDef="let element;let i=index"> {{ (i%2 == 0) ? '225' : '801' }}
+                            </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="offersDisplayedColumns"></mat-header-row>
+                        <mat-row mat-row *matRowDef="let row; columns: offersDisplayedColumns;"></mat-row>
+                    </mat-table>
+                </div>
+                <div>
+                    <mat-paginator #offersPaginator (page)="getNewOffers($event)" [length]="offersCollectionSize"
+                        [pageSize]="offersPageSize" hidePageSize="true" [pageIndex]="offersPageIndex"
+                        showFirstLastButtons>
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+
+        <div class="grabits-section" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="12px">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="section-heading">GRABITS - </span>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="start stretch">
+                <div class="grabit-list-table">
+                    <mat-table mat-table [dataSource]="grabits">
+                        <ng-container matColumnDef="image">
+                            <mat-header-cell *matHeaderCellDef>image</mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                <img class="product-img" src="../../../../assets/images/users/ashley.jpg"
+                                    alt="product-image">
+                            </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="name">
+                            <mat-header-cell *matHeaderCellDef>name</mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.name | lowercase }} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="name2">
+                            <mat-header-cell *matHeaderCellDef>name2</mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.name | uppercase }} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="name3">
+                            <mat-header-cell *matHeaderCellDef>name3</mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.name | uppercase }} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="prize">
+                            <mat-header-cell *matHeaderCellDef>prize</mat-header-cell>
+                            <mat-cell *matCellDef="let element;let i=index"> {{ (i%2 == 0) ? '225' : '801' }}
+                            </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="grabitsDisplayedColumns"></mat-header-row>
+                        <mat-row mat-row *matRowDef="let row; columns: grabitsDisplayedColumns;"></mat-row>
+                    </mat-table>
+                </div>
+                <div>
+                    <mat-paginator #grabitsPaaginator (page)="getNewGrabits($event)" [length]="grabitsCollectionSize"
+                        [pageSize]="grabitsPageSize" hidePageSize="true" [pageIndex]="grabitsPageIndex"
+                        showFirstLastButtons>
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-feed-section" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="12px">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="section-heading">Order and iGrab Feed - </span>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="start stretch">
+                <div class="order-list-table">
+                    <mat-table mat-table [dataSource]="orders">
+                        <ng-container matColumnDef="image">
+                            <mat-header-cell *matHeaderCellDef>image</mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                <img class="product-img" src="../../../../assets/images/users/user.jpg"
+                                    alt="product-image">
+                            </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="name">
+                            <mat-header-cell *matHeaderCellDef>name</mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.name | lowercase }} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="prize">
+                            <mat-header-cell *matHeaderCellDef>prize</mat-header-cell>
+                            <mat-cell *matCellDef="let element;let i=index"> {{ (i%2 == 0) ? '225' : '801' }}
+                            </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="ordersDisplayedColumns"></mat-header-row>
+                        <mat-row mat-row *matRowDef="let row; columns: ordersDisplayedColumns;"></mat-row>
+                    </mat-table>
+                </div>
+                <div>
+                    <mat-paginator #ordersPaginator (page)="getNewOrders($event)" [length]="ordersCollectionSize"
+                        [pageSize]="ordersPageSize" hidePageSize="true" [pageIndex]="ordersPageIndex"
+                        showFirstLastButtons>
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

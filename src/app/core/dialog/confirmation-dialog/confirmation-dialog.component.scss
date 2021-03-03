@@ -1,0 +1,18 @@
+@import "../../../styles/variables.scss";
+
+.dialog-content {
+  height: 100%;
+  padding: 45px 10px 19px 10px;
+
+  .header {
+    color: #191919;
+    font-family: $app-century-bold;
+    font-size: 20px;
+  }
+
+  .content {
+    color: #191919;
+    font-family: $app-century-regular;
+    font-size: 16px;
+  }
+}

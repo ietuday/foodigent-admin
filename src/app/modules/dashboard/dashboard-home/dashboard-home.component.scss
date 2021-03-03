@@ -1,0 +1,22 @@
+@import "../../../styles/variables.scss";
+
+.sidenav-container {
+  position: absolute;
+  top: 0;
+  bottom: $bottom-toolbar-height;
+  left: 0;
+  right: 0;
+}
+
+.app-nav-logo {
+  img {
+    width: 72px;
+    margin-left: -16px;
+  }
+}
+
+.dash-content {
+  height: calc(100vh - #{$top-toolbar-height});
+  margin-top: $top-toolbar-height;
+  background-color: $app-background-color;
+}

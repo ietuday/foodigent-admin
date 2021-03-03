@@ -1,0 +1,15 @@
+<div fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="test-page" fxLayout="column" fxLayoutAlign="start stretch">
+        <div class="test-section" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="12px">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="section-heading">Users - </span>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="10px">
+                <div *ngFor="let user of users; let i=index" fxLayout="row" fxLayoutAlign="start center" class="user-data">
+                    <span class="user-id">{{ i + 1 }} ==></span>
+                    <span class="user-name">{{ user?.name}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

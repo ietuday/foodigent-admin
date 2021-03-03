@@ -1,0 +1,116 @@
+<div fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="profile-page" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="10px">
+        <div class="profile-section" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="12px">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="section-heading">User Profile - </span>
+            </div>
+            <div class="user-profile-row" fxLayout="row" fxLayoutAlign="center center">
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.lt-sm="center center">
+                    <img class="profile-photo"
+                        [src]="user?.profileUrl ? user?.profileUrl : 'assets/images/users/default-user.jpg'"
+                        alt="profile photo" />
+                    <button *ngIf="editMode" mat-mini-fab (click)="profilePic.click()" class="edit-fab">
+                        <mat-icon aria-label="Edit profile">add</mat-icon>
+                    </button>
+                </div>
+                <input #profilePic name="photo" fxShow="false" type="file" accept="image/png, image/jpeg, image/jpg"
+                    (change)="onProfilePicSelected($event.target)" />
+            </div>
+        </div>
+
+        <div class="profile-section" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="12px">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="section-heading">Attachments - </span>
+            </div>
+            <div *ngIf="editMode" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="18px">
+                <ng-container>
+                    <div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="start stretch">
+                        <div *ngIf="(selectedAttachments.length + newUploadedAttachments.length) < 5" appDragDrop
+                            (onFileDropped)="onFileInput($event)" class="upload-attachments" fxLayout="column"
+                            fxLayoutAlign="center center">
+                            <div fxLayout="row wrap" fxLayoutAlign="center start">
+                                <div class="add-file-label" tabindex="14" fxLayout="row" fxLayoutAlign="center start"
+                                    (click)="inputFiles.click()">
+                                    <mat-icon>
+                                        attach_file
+                                    </mat-icon>
+                                    Add file &nbsp;
+                                </div>
+                                or drag to upload
+                            </div>
+                        </div>
+                        <div fxLayout="column" fxLayoutAlign="start start">
+                            <ul class="file-upload-tips">
+                                <li>Supported file formats include: .jpg .png .jpeg .pdf</li>
+                                <li>Max 5 MB</li>
+                                <li>Max 5 files</li>
+                            </ul>
+                            <input #inputFiles fxShow="false" (change)="onFileInput($event.target)" type="file"
+                                multiple />
+                        </div>
+                        <div fxLayout="column" fxLayoutAlign="start stretch"
+                            *ngFor="let file of fileNames; let i = index">
+                            <div class="file-list-item" *ngIf="file" fxLayout="row wrap"
+                                fxLayoutAlign="space-between center">
+                                <div fxLayout="row" fxFlex="85" fxLayoutAlign="start center" fxLayoutGap="10px">
+                                    <mat-icon>
+                                        attach_file
+                                    </mat-icon>
+                                    <span class="file-name">
+                                        <a [href]="file.link" target="_blank">
+                                            {{ file.name }}
+                                        </a>
+                                    </span>
+                                </div>
+                                <div>
+                                    <button mat-icon-button matTooltip="Delete File" matTooltipPosition="above"
+                                        (click)="removeAttachment(i,'name')">
+                                        <mat-icon aria-label="export icon">delete</mat-icon>
+                                    </button>
+                                    <!-- <button mat-icon-button [matMenuTriggerFor]="menu">
+                                        <mat-icon color="primary">more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu xPosition="before" #menu="matMenu">
+                                        <button mat-menu-item (click)="removeAttachment(i,'name')">
+                                            <span>Delete</span>
+                                        </button>
+                                    </mat-menu> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="column" fxLayoutAlign="start stretch"
+                            *ngFor="let file of newUploadedAttachments; let i = index">
+                            <div *ngIf="file" class="file-list-item" fxLayout="row wrap"
+                                fxLayoutAlign="space-between center">
+                                <div fxLayout="row" fxFlex="85" fxLayoutAlign="start center" fxLayoutGap="10px">
+                                    <mat-icon>
+                                        attach_file
+                                    </mat-icon>
+                                    <span class="file-name">
+                                        <!-- <a [href]="file.link" target="_blank"> -->
+                                        {{ file.name }}
+                                        <!-- </a> -->
+                                    </span>
+                                </div>
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <button mat-icon-button matTooltip="Delete File" matTooltipPosition="above"
+                                        (click)="removeAttachment(i,'name')">
+                                        <mat-icon aria-label="export icon">delete</mat-icon>
+                                    </button>
+                                    <!-- <button mat-icon-button [matMenuTriggerFor]="menu">
+                                        <mat-icon color="primary">more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu xPosition="before" #menu="matMenu">
+                                        <button mat-menu-item (click)="removeAttachment(i,'file')">
+                                            <span>Delete</span>
+                                        </button>
+                                    </mat-menu> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

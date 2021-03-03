@@ -1,0 +1,72 @@
+@import "../../../styles/variables.scss";
+
+.vendor-details-page {
+  // 100vh device height
+  // 56px top toolbar height
+  // 24px bottom toolbar height
+  // height: calc(100vh - 56px);
+  padding: 12px;
+  margin: 12px;
+  box-shadow: 0px 3px 6px #00000029;
+
+  .date-range-picker-section {
+    margin: 12px 0;
+  }
+
+  .chip[class] {
+    border-radius: 20px !important;
+    background-color: rgba(0, 0, 0, 0.08) !important;
+    color: rgba(0, 0, 0, 0.6) !important;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 20px !important;
+    margin: 4px;
+    cursor: pointer !important;
+  }
+
+  .chip:hover {
+    background: rgba(0, 0, 0, 0.04) !important;
+  }
+
+  .selected-chip[class] {
+    color: white !important;
+    background-color: #5c6bc0 !important;
+  }
+
+  .selected-chip:hover {
+    background: #4d5aa1 !important;
+  }
+
+  .selected-chip[class] {
+    color: white !important;
+    background-color: #5c6bc0 !important;
+  }
+
+  .selected-chip:hover {
+    background: #4d5aa1 !important;
+  }
+
+  mat-header-cell,
+  mat-cell {
+    padding: 6px 6px;
+  }
+
+  .order-img {
+    border-radius: 50% !important;
+    width: 60px !important;
+    height: 60px !important;
+    border: 2px solid rgba(0, 0, 0, 0.12);
+  }
+}
+
+table {
+  width: 100%;
+}
+
+@media (max-width: 800px) {
+  .order-list-table {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+  }
+}

@@ -1,0 +1,9 @@
+.filter-section {
+  margin-bottom: -16px !important;
+}
+
+@media (max-width: 800px) {
+  .filter-section {
+    margin-bottom: 0px !important;
+  }
+}

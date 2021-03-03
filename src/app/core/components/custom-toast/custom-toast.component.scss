@@ -1,0 +1,15 @@
+.custom-toast {
+  color: white !important;
+  padding: 20px;
+  font-weight: bold;
+  min-width: 9px !important;
+  border-radius: 4px;
+}
+
+.sucess-toast {
+  background-color: #0aa70a !important;
+}
+
+.error-toast {
+  background-color: #a70a0a !important;
+}

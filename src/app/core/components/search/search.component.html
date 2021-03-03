@@ -1,0 +1,5 @@
+<div fxFlex fxLayout="row" fxLayoutAlign="start center" class="app-search-container">
+    <mat-icon color='primary'>search</mat-icon>
+    <input class="app-search-bar" type="text" [placeholder]="placeholder" [(ngModel)]="searchQuery"
+        (input)="onSearch()">
+</div>

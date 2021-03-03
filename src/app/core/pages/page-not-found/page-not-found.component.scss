@@ -1,0 +1,31 @@
+.page-not-found-page {
+  height: 100vh;
+  background: #e55d87; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #5fc3e4,
+    #e55d87
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #5fc3e4,
+    #e55d87
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  .heading {
+    text-align: center;
+    font-size: 140px;
+    line-height: 1.3em;
+    margin: 2rem 0 0.5rem 0;
+    padding: 0;
+    text-shadow: 0 0 1rem #fefefe;
+  }
+
+  .home-link {
+    cursor: pointer;
+    background-color: darkcyan;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 8px;
+  }
+}
