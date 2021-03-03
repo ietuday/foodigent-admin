@@ -28,9 +28,11 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -61,7 +63,9 @@
                   "maximumWarning": "2kb",
                   "maximumError": "4kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
             }
           }
         },
@@ -91,9 +95,11 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -127,5 +133,8 @@
       }
     }
   },
-  "defaultProject": "foodigent-admin"
+  "defaultProject": "foodigent-admin",
+  "cli": {
+    "analytics": "2c5b051f-28ab-48d1-a01d-11e99da2440a"
+  }
 }
