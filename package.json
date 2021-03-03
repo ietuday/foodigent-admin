@@ -1,10 +1,30 @@
 {
   "name": "foodigent-admin",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "responsive web app with advanced folder structure using angular",
+  "author": {
+    "name": "Udayaditya Singh",
+    "github": "https://github.com/ietuday"
+  },
+  "contributors": [
+    {
+      "name": "Ashutosh Gole",
+      "github": "https://github.com/ashutosh-gole"
+    }
+  ],
+  "homepage": "http://localhost:4200",
+  "copyright": "Copyright 2021",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "prod-serve": "ng serve --configuration=production",
+    "stage-serve": "ng serve --configuration=staging",
+    "build": "ng build --prod",
+    "prod-build": "ng build --prod --configuration=production",
+    "stage-build": "ng build --prod --configuration=staging",
+    "prod-pwa": "ng build --prod --configuration=production && http-server -p 5200 -c-1 dist/igrab-admin",
+    "stage-pwa": "ng build --prod --configuration=staging && http-server -p 5200 -c-1 dist/igrab-admin",
+    "compodoc": "npx compodoc -p tsconfig.json -s -w -r 4300",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -16,12 +36,17 @@
     "@angular/common": "~11.0.5",
     "@angular/compiler": "~11.0.5",
     "@angular/core": "~11.0.5",
+    "@angular/flex-layout": "^11.0.0-beta.33",
     "@angular/forms": "~11.0.5",
     "@angular/material": "^11.2.2",
+    "@angular/material-moment-adapter": "^11.2.2",
     "@angular/platform-browser": "~11.0.5",
     "@angular/platform-browser-dynamic": "~11.0.5",
     "@angular/router": "~11.0.5",
     "@angular/service-worker": "~11.0.5",
+    "aws-sdk": "^2.855.0",
+    "crypto-js": "^4.0.0",
+    "moment": "^2.29.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
@@ -30,6 +55,8 @@
     "@angular-devkit/build-angular": "~0.1100.5",
     "@angular/cli": "~11.0.5",
     "@angular/compiler-cli": "~11.0.5",
+    "@compodoc/compodoc": "^1.1.11",
+    "@types/crypto-js": "^4.0.1",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
@@ -44,5 +71,9 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.0.2"
+  },
+  "engines": {
+    "node": ">= 12.20.0",
+    "npm": ">= 6.14.18"
   }
 }

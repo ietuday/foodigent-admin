@@ -26,5 +26,21 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "api",
+      "urls": [
+        "https://gorest.co.in/public-api/users",
+        "https://emarket-production.herokuapp.com/api/v1/company/get-all-company",
+        "https://emarket-rapidera.herokuapp.com/api/v1/company/get-all-company"
+      ],
+      "cacheConfig": {
+        "maxAge": "1d",
+        "maxSize": 100,
+        "strategy": "freshness",
+        "timeout": "10s"
+      }
+    }
   ]
 }
