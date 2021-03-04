@@ -35,7 +35,7 @@ export class ResetPasswordComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle("iGrab Admin | Reset Password");
+    this.titleService.setTitle("Foodigent Admin | Reset Password");
 
     this.activatedRoute.paramMap.subscribe(params => {
       console.log("params===============", params);

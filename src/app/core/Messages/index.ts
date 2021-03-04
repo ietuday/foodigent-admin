@@ -1,4 +1,4 @@
-export const IGRAB_ADMIN = {
+export const FOODIGENT_ADMIN = {
     ADD_NEW_USER: 'New user saved successfully',
     UPDATE_USER: 'User details updated successfully',
     ADD_ROLE: 'Role added successfully',

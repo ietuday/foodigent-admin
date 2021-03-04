@@ -64,7 +64,7 @@ export class VendorListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     document.documentElement.scrollTop = 0;
-    this.titleService.setTitle('iGrab Admin | Vendors');
+    this.titleService.setTitle('Foodigent Admin | Vendors');
     this.getSelectedFilterData();
     this.searchService.getVendorSearchData().pipe(debounceTime(1000), distinctUntilChanged()).subscribe((res: any) => {
       console.log("11111 ngOnInit() searchQuery===========", res);

@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle("iGrab Admin | Login");
+    this.titleService.setTitle("Foodigent Admin | Login");
 
     const rememberedEmail = localStorage.getItem('email');
     this.loginForm = this.fb.group({

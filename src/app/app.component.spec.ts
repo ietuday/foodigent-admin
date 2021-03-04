@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'iGrab Admin'`, () => {
+  it(`should have as title 'Foodigent Admin'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('iGrab Admin');
+    expect(app.title).toEqual('Foodigent Admin');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('iGrab Admin app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('Foodigent Admin app is running!');
   });
 });

@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle("iGrab Admin | Profile");
+    this.titleService.setTitle("Foodigent Admin | Profile");
   }
 
   /**

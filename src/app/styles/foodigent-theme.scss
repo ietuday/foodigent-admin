@@ -1,13 +1,13 @@
 @import "~@angular/material/theming";
 @import "./variables.scss";
 
-$igrab-typography: mat-typography-config(
+$foodigent-typography: mat-typography-config(
   $font-family: $app-century-regular,
 );
 
-@include mat-core($igrab-typography);
+@include mat-core($foodigent-typography);
 
-$igrab-primary-palette: (
+$foodigent-primary-palette: (
   50: rgb(115, 142, 153),
   100: rgb(26, 108, 143),
   APP_DARK_GRAY: #454544,
@@ -44,20 +44,20 @@ $igrab-primary-palette: (
   ),
 );
 
-$igrab-theme-primary: mat-palette($igrab-primary-palette);
-$igrab-theme-accent: mat-palette($igrab-primary-palette, 800);
-$igrab-theme-warn: mat-palette($mat-red);
+$foodigent-theme-primary: mat-palette($foodigent-primary-palette);
+$foodigent-theme-accent: mat-palette($foodigent-primary-palette, 800);
+$foodigent-theme-warn: mat-palette($mat-red);
 
-$igrab-theme: mat-light-theme(
+$foodigent-theme: mat-light-theme(
   (
     color: (
-      primary: $igrab-theme-primary,
-      accent: $igrab-theme-accent,
-      warn: $igrab-theme-warn,
+      primary: $foodigent-theme-primary,
+      accent: $foodigent-theme-accent,
+      warn: $foodigent-theme-warn,
     ),
   )
 );
 
-$accent: mat-color($igrab-theme-accent);
+$accent: mat-color($foodigent-theme-accent);
 
-@include angular-material-theme($igrab-theme);
+@include angular-material-theme($foodigent-theme);

@@ -35,7 +35,7 @@ export class ChangePasswordComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle("iGrab Admin | Change Password");
+    this.titleService.setTitle("Foodigent Admin | Change Password");
 
     let passwordPattern = "^(?=[^a-zA-Z]*[a-zA-Z])(?=[^0-9]*[0-9]).{8,}$";
     this.changePasswordForm = this.fb.group({

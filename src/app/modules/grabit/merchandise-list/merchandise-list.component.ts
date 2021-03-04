@@ -64,7 +64,7 @@ export class MerchandiseListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     document.documentElement.scrollTop = 0;
-    this.titleService.setTitle('iGrab Admin | Merchandise');
+    this.titleService.setTitle('Foodigent Admin | Merchandise');
     this.getSelectedFilterData();
     this.searchService.getMerchandiseSearchData().pipe(debounceTime(1000), distinctUntilChanged()).subscribe((res: any) => {
       console.log("11111 ngOnInit() searchQuery===========", res);

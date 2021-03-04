@@ -40,7 +40,7 @@ export class OrderListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     document.documentElement.scrollTop = 0;
-    this.titleService.setTitle('iGrab Admin | Orders');
+    this.titleService.setTitle('Foodigent Admin | Orders');
     this.getOrders();
   }
 

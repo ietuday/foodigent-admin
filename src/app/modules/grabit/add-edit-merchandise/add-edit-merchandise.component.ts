@@ -43,7 +43,7 @@ export class AddEditMerchandiseComponent implements OnInit {
         this.editMode = false;
       }
 
-      this.titleService.setTitle(`iGrab Admin | ${this.editMode ? 'Edit' : 'Add'} Merchandise`);
+      this.titleService.setTitle(`Foodigent Admin | ${this.editMode ? 'Edit' : 'Add'} Merchandise`);
       this.buildForm();
     });
   }

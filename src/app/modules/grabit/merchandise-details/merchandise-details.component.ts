@@ -42,7 +42,7 @@ export class MerchandiseDetailsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     document.documentElement.scrollTop = 0;
-    this.titleService.setTitle('iGrab Admin | Merchandise Details');
+    this.titleService.setTitle('Foodigent Admin | Merchandise Details');
 
     this.activatedRoute.paramMap.subscribe(params => {
       this.merchandiseId = params.get('id');

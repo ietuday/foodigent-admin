@@ -54,7 +54,7 @@ export class CustomerDetailsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     document.documentElement.scrollTop = 0;
-    this.titleService.setTitle('iGrab Admin | Customer Details');
+    this.titleService.setTitle('Foodigent Admin | Customer Details');
 
     this.activatedRoute.paramMap.subscribe(params => {
       this.customerId = params.get('id');

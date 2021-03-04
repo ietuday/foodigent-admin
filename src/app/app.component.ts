@@ -10,7 +10,7 @@ import { PwaUpdateService } from './core/services/pwa-update/pwa-update.service'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'iGrab Admin';
+  title = 'Foodigent Admin';
   isLoading = false;
   isNavigationStarted = false;
 

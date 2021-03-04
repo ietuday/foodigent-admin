@@ -63,7 +63,7 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('iGrab Admin | Customers');
+    this.titleService.setTitle('Foodigent Admin | Customers');
     this.getSelectedFilterData();
     this.searchService.getCustomerSearchData().pipe(debounceTime(1000), distinctUntilChanged()).subscribe((res: any) => {
       console.log("11111 ngOnInit() searchQuery===========", res);

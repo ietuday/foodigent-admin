@@ -103,7 +103,7 @@ export class VendorDetailsComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('iGrab Admin | Vendor Details');
+    this.titleService.setTitle('Foodigent Admin | Vendor Details');
 
     this.activatedRoute.paramMap.subscribe(params => {
       this.vendorId = params.get('id');

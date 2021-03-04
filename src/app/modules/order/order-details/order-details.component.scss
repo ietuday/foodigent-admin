@@ -16,7 +16,7 @@
 
   .user-info-section,
   .product-list-section,
-  .igrab-offer-section {
+  .foodigent-offer-section {
     padding: 12px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
@@ -41,8 +41,8 @@
     }
   }
 
-  .igrab-offer-section {
-    .igrab-offer-heading {
+  .foodigent-offer-section {
+    .foodigent-offer-heading {
       font-family: $app-century-bold;
       font-size: 18px;
       letter-spacing: 0px;
@@ -50,7 +50,7 @@
       color: #191919;
     }
 
-    .igrab-offer-value {
+    .foodigent-offer-value {
       font-family: $app-century-bold;
       font-size: 14px;
       letter-spacing: 0px;

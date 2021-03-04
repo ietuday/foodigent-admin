@@ -22,7 +22,7 @@ export class ForgotPasswordComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle("iGrab Admin | Forgot Password");
+    this.titleService.setTitle("Foodigent Admin | Forgot Password");
 
     this.forgotForm = this.fb.group({
       email: ['', [Validators.required, Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)]]
