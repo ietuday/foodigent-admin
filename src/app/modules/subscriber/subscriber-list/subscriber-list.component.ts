@@ -7,7 +7,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ConfirmationDialogComponent } from 'src/app/core/dialog/confirmation-dialog/confirmation-dialog.component';
-import { CustomerModel } from 'src/app/core/models/customer.model';
+import { VendorModel } from 'src/app/core/models/vendor.model';
 import { ApiParam, ApiResponse, ApiService } from 'src/app/core/services/api/api.service';
 import { AppStorageService } from 'src/app/core/services/authentication/app-storage/app-storage.service';
 import { AuthService } from 'src/app/core/services/authentication/auth/auth.service';
@@ -16,20 +16,20 @@ import { SearchService } from 'src/app/core/services/search/search.service';
 import { ToastService } from 'src/app/core/services/toast/toast.service';
 
 @Component({
-  selector: 'app-customer-list',
-  templateUrl: './customer-list.component.html',
-  styleUrls: ['./customer-list.component.scss']
+  selector: 'app-subscriber-list',
+  templateUrl: './subscriber-list.component.html',
+  styleUrls: ['./subscriber-list.component.scss']
 })
-export class CustomerListComponent implements OnInit, AfterViewInit {
-  customersDisplayedColumns: string[] = ['profile', 'name', 'email', "desc", "isSuspended", "action"];
-  customersPageIndex: number = 0;
-  customersPageSize: number = 5;
-  customersCollectionSize: number = 0;
-  customers = new MatTableDataSource<CustomerModel>();
-  @ViewChild('customersPaginator') customersPaginator?: MatPaginator;
-  @ViewChild('customersSort') customersSort?: MatSort;
+export class SubscriberListComponent implements OnInit {
+  vendorsDisplayedColumns: string[] = ['profile', 'name', 'email', 'desc', 'isSuspended', 'action'];
+  vendorsPageIndex: number = 0;
+  vendorsPageSize: number = 10;
+  vendorsCollectionSize: number = 0;
+  vendors = new MatTableDataSource<VendorModel>();
+  @ViewChild('vendorsPaginator') vendorsPaginator?: MatPaginator;
+  @ViewChild('vendorsSort') vendorsSort?: MatSort;
 
-  placeholder: string = "Search by customer name";
+  placeholder: string = "Search by vendor name";
   searchQuery: string = "";
   sortItem = "name";
   sortOrder = "asc";
@@ -48,7 +48,7 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
       value: "deactive"
     }
   ];
-  customerListSelectedFilter?: any;
+  vendorListSelectedFilter?: any;
 
   constructor(
     private router: Router,
@@ -63,35 +63,36 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Foodigent Admin | Customers');
+    document.documentElement.scrollTop = 0;
+    this.titleService.setTitle('Foodigent Admin | Vendors');
     this.getSelectedFilterData();
-    this.searchService.getCustomerSearchData().pipe(debounceTime(1000), distinctUntilChanged()).subscribe((res: any) => {
+    this.searchService.getVendorSearchData().pipe(debounceTime(1000), distinctUntilChanged()).subscribe((res: any) => {
       console.log("11111 ngOnInit() searchQuery===========", res);
       if (res !== "") {
-        this.getCustomers();
+        this.getVendors();
       }
     });
-    this.getCustomers();
+    this.getVendors();
   }
 
   ngAfterViewInit() {
-    if (this.customersSort && this.customersPaginator) {
-      this.customers.sort = this.customersSort;
-      this.customers.paginator = this.customersPaginator;
+    if (this.vendorsSort && this.vendorsPaginator) {
+      this.vendors.sort = this.vendorsSort;
+      this.vendors.paginator = this.vendorsPaginator;
     }
   }
 
   /**
-   * @description get customers data
+   * @description get vendor list data
    */
-  getCustomers() {
+  getVendors() {
     let filterData = {
-      pageNo: this.customersPageIndex + 1,
-      limit: this.customersPageSize,
+      pageNo: this.vendorsPageIndex + 1,
+      limit: this.vendorsPageSize,
       sortItem: this.sortItem,
       sortOrder: this.sortOrder,
       searchQuery: this.searchQuery,
-      selectedFilter: this.customerListSelectedFilter
+      selectedFilter: this.vendorListSelectedFilter
     };
     let postData: ApiParam = {
       data: filterData
@@ -99,8 +100,8 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
     this.loadingService.show();
     this.apiService.request("GET_ALL_COMPANY", postData).subscribe((response: ApiResponse) => {
       if (response.isSuccess) {
-        this.customers.data = response.data.companies;
-        this.customersCollectionSize = response.data.totalCount;
+        this.vendors.data = response.data.companies;
+        this.vendorsCollectionSize = response.data.totalCount;
         this.loadingService.hide();
       }
     },
@@ -110,14 +111,14 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * @description get filtered customer list data
+   * @description get filtered vendor list data
    * @param event 
    */
-  getNewCustomers(event: any) {
+  getNewVendors(event: any) {
     console.log("event==========", event);
-    this.customersPageIndex = event.pageIndex;
-    this.customersPageSize = event.pageSize;
-    this.getCustomers();
+    this.vendorsPageIndex = event.pageIndex;
+    this.vendorsPageSize = event.pageSize;
+    this.getVendors();
   }
 
   /**
@@ -128,36 +129,36 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
     console.log("sort event::::::::::::::", event);
     this.sortItem = event.active;
     this.sortOrder = event.direction;
-    (this.customersPaginator as MatPaginator).pageIndex = 0;
-    this.customersPageIndex = 0;
+    (this.vendorsPaginator as MatPaginator).pageIndex = 0;
+    this.vendorsPageIndex = 0;
     this.searchQuery = "";
-    this.setCustomerSearchData();
-    this.getCustomers();
+    this.setVendorSearchData();
+    this.getVendors();
   }
 
   /**
-   * @description navigating to customer details page
+   * @description navigating to vendor details page
    */
   goToDetailsPage(id: any) {
-    this.router.navigate([`/customers/customer-details/${id}`]);
+    this.router.navigate([`/subscribers/subscriber-details/${id}`]);
   }
 
   /**
-   * @description get customer list data
+   * @description get vendor list data
    */
   onSearchEvent(value: any) {
     this.searchQuery = value;
-    (this.customersPaginator as MatPaginator).pageIndex = 0;
-    this.customersPageIndex = 0;
-    this.setCustomerSearchData();
+    (this.vendorsPaginator as MatPaginator).pageIndex = 0;
+    this.vendorsPageIndex = 0;
+    this.setVendorSearchData();
   }
 
   /**
    * @description push data into subject
    */
-  setCustomerSearchData() {
+  setVendorSearchData() {
     const query = this.searchQuery.trim();
-    this.searchService.setCustomerSearchData(query);
+    this.searchService.setVendorSearchData(query);
   }
 
   /**
@@ -166,39 +167,15 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
   exportToExcel() {
     let postData: ApiParam = {
       data: {
-        customerId: '123',
+        vendorId: '123',
         sortItem: this.sortItem,
         sortOrder: this.sortOrder,
         searchQuery: this.searchQuery,
-        selectedFilter: this.customerListSelectedFilter
+        selectedFilter: this.vendorListSelectedFilter
       }
-    }
+    };
     this.loadingService.show();
-    this.apiService.request("CUSTOMERS_EXPORT_TO_EXCEL", postData).subscribe((response: ApiResponse) => {
-      if (response.isSuccess) {
-        this.link = response.data.link;
-        this.loadingService.hide();
-        if (this.link) {
-          this.apiService.getPreSignedLink(this.link);
-        }
-      }
-    },
-      error => {
-        this.loadingService.hide();
-      });
-  }
-
-  /**
-   * @description export to invoice
-   */
-  exportToInvoice(id: any) {
-    let postData: ApiParam = {
-      data: {
-        id: id
-      }
-    }
-    this.loadingService.show();
-    this.apiService.request("CUSTOMERS_EXPORT_TO_INVOICE", postData).subscribe((response: ApiResponse) => {
+    this.apiService.request("VENDORS_EXPORT_TO_EXCEL", postData).subscribe((response: ApiResponse) => {
       if (response.isSuccess) {
         this.link = response.data.link;
         this.loadingService.hide();
@@ -218,13 +195,13 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
   onFilterSelected(value: any) {
     console.log("onFilterSelected() value=========", value);
     if (value !== undefined) {
-      this.appStorageService.save('customer-list-selected-filter', value);
+      this.appStorageService.save('vendor-list-selected-filter', value);
       this.getSelectedFilterData();
-      (this.customersPaginator as MatPaginator).pageIndex = 0;
-      this.customersPageIndex = 0;
+      (this.vendorsPaginator as MatPaginator).pageIndex = 0;
+      this.vendorsPageIndex = 0;
       this.searchQuery = "";
-      this.setCustomerSearchData();
-      this.getCustomers();
+      this.setVendorSearchData();
+      this.getVendors();
     }
   }
 
@@ -232,22 +209,22 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
    * @description get selected filtered data
    */
   getSelectedFilterData() {
-    if (this.appStorageService.get('customer-list-selected-filter') !== null) {
-      this.customerListSelectedFilter = this.appStorageService.get('customer-list-selected-filter');
+    if (this.appStorageService.get('vendor-list-selected-filter') !== null) {
+      this.vendorListSelectedFilter = this.appStorageService.get('vendor-list-selected-filter');
     } else {
-      this.appStorageService.save('customer-list-selected-filter', "active");
-      this.customerListSelectedFilter = "active";
+      this.appStorageService.save('vendor-list-selected-filter', "active");
+      this.vendorListSelectedFilter = "active";
     }
-    console.log("customer-list-selected-filter===========", this.customerListSelectedFilter);
+    console.log("vendor-list-selected-filter===========", this.vendorListSelectedFilter);
   }
 
   /**
-   * @description To activate and deactivate customer account
+   * @description To activate and deactivate vendor account
    * @param id 
    * @param isActive 
    * @param isActive 
    */
-  activateDeactivateCustomer(id: string, isActive: boolean = true, name: string): void {
+  activateDeactivateVendor(id: string, isActive: boolean = true, name: string): void {
     const deleteDialogRef = this.dialog.open(ConfirmationDialogComponent, {
       // disableClose: true,
       hasBackdrop: true,
@@ -269,7 +246,7 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
           }
         };
         this.loadingService.show();
-        this.apiService.request('DEACTIVATE_CUSTOMER', param).subscribe((response: ApiResponse) => {
+        this.apiService.request('DEACTIVATE_VENDOR', param).subscribe((response: ApiResponse) => {
           this.toastService.activateSuccess(response.data);
           this.loadingService.hide();
         },
@@ -282,7 +259,7 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * @description reset customer password
+   * @description reset vendor password
    * @param id 
    */
   resetPassword(id: any) {
@@ -307,7 +284,7 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
           }
         };
         this.loadingService.show();
-        this.apiService.request('RESET_CUSTOMER_PASSWORD', param).subscribe((response: ApiResponse) => {
+        this.apiService.request('RESET_VENDOR_PASSWORD', param).subscribe((response: ApiResponse) => {
           this.toastService.activateSuccess(response.data);
           this.loadingService.hide();
         },

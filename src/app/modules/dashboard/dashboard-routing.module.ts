@@ -18,12 +18,8 @@ const routes: Routes = [
                 component: ProfileComponent
             },
             {
-                path: 'vendors',
-                loadChildren: () => import('../vendor/vendor.module').then(res => res.VendorModule)
-            },
-            {
-                path: 'customers',
-                loadChildren: () => import('../customer/customer.module').then(res => res.CustomerModule)
+                path: 'subscribers',
+                loadChildren: () => import('../subscriber/subscriber.module').then(res => res.SubscriberModule)
             },
             {
                 path: 'test',
@@ -31,7 +27,7 @@ const routes: Routes = [
             },
             {
                 path: '',
-                redirectTo: 'vendors',
+                redirectTo: 'subscribers',
                 pathMatch: 'full'
             }
         ]
