@@ -10,10 +10,6 @@ export const verticalMenuItems = [
 
     new Menu(1, 'Vendors', '/vendors', null, 'engineering', null, false, 0, true, 'admin'),
 
-    new Menu(2, 'Rewards', '/rewards', null, 'monetization_on', null, false, 0, true, 'admin'),
-
-    new Menu(3, 'Grabits', '/grabits', null, 'work', null, false, 0, true, 'admin'),
-
     new Menu(4, 'Customer', '/customers', null, 'people', null, false, 0, true, 'admin'),
 
     new Menu(5, 'Sub Menu Test', null, null, 'dynamic_form', null, true, 0, true, 'admin'),

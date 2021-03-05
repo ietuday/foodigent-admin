@@ -22,14 +22,6 @@ const routes: Routes = [
                 loadChildren: () => import('../vendor/vendor.module').then(res => res.VendorModule)
             },
             {
-                path: 'grabits',
-                loadChildren: () => import('../grabit/grabit.module').then(res => res.GrabitModule)
-            },
-            {
-                path: 'rewards',
-                loadChildren: () => import('../reward/reward.module').then(res => res.RewardModule)
-            },
-            {
                 path: 'customers',
                 loadChildren: () => import('../customer/customer.module').then(res => res.CustomerModule)
             },
