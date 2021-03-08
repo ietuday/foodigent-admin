@@ -7,7 +7,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ConfirmationDialogComponent } from 'src/app/core/dialog/confirmation-dialog/confirmation-dialog.component';
-import { VendorModel } from 'src/app/core/models/vendor.model';
+import { SubscriberModel } from 'src/app/core/models/subscriber.model';
 import { ApiParam, ApiResponse, ApiService } from 'src/app/core/services/api/api.service';
 import { AppStorageService } from 'src/app/core/services/authentication/app-storage/app-storage.service';
 import { AuthService } from 'src/app/core/services/authentication/auth/auth.service';
@@ -20,21 +20,23 @@ import { ToastService } from 'src/app/core/services/toast/toast.service';
   templateUrl: './subscriber-list.component.html',
   styleUrls: ['./subscriber-list.component.scss']
 })
-export class SubscriberListComponent implements OnInit {
-  vendorsDisplayedColumns: string[] = ['profile', 'name', 'email', 'desc', 'isSuspended', 'action'];
-  vendorsPageIndex: number = 0;
-  vendorsPageSize: number = 10;
-  vendorsCollectionSize: number = 0;
-  vendors = new MatTableDataSource<VendorModel>();
-  @ViewChild('vendorsPaginator') vendorsPaginator?: MatPaginator;
-  @ViewChild('vendorsSort') vendorsSort?: MatSort;
+export class SubscriberListComponent implements OnInit, AfterViewInit {
+  subscribersDisplayedColumns: string[] = ['profile', 'name', 'email', 'desc', 'isSuspended', 'payment period', 'action'];
+  subscribersPageIndex: number = 0;
+  subscribersPageSize: number = 10;
+  subscribersCollectionSize: number = 0;
+  subscribers = new MatTableDataSource<SubscriberModel>();
+  @ViewChild('subscribersPaginator') subscribersPaginator?: MatPaginator;
+  @ViewChild('subscribersSort') subscribersSort?: MatSort;
 
-  placeholder: string = "Search by vendor name";
+  date = new Date();
+  placeholder: string = "Search by Subscriber";
   searchQuery: string = "";
   sortItem = "name";
   sortOrder = "asc";
   link?: string = "";
-  filterTypes: Array<any> = [
+  suspendFilterName = "Suspend Option";
+  suspendFilterTypes: Array<any> = [
     {
       name: "All",
       value: "all"
@@ -48,7 +50,24 @@ export class SubscriberListComponent implements OnInit {
       value: "deactive"
     }
   ];
-  vendorListSelectedFilter?: any;
+  subscriberSuspendSelectedFilter?: any;
+
+  paymentFilterName = "Payment Option";
+  paymentFilterTypes: Array<any> = [
+    {
+      name: "Monthly",
+      value: "monthly"
+    },
+    {
+      name: "Annually",
+      value: "annually"
+    },
+    {
+      name: "Yearlly",
+      value: "yearlly"
+    }
+  ];
+  subscriberPaymentSelectedFilter?: any;
 
   constructor(
     private router: Router,
@@ -64,35 +83,36 @@ export class SubscriberListComponent implements OnInit {
 
   ngOnInit(): void {
     document.documentElement.scrollTop = 0;
-    this.titleService.setTitle('Foodigent Admin | Vendors');
+    this.titleService.setTitle('Foodigent Admin | Subscribers');
     this.getSelectedFilterData();
-    this.searchService.getVendorSearchData().pipe(debounceTime(1000), distinctUntilChanged()).subscribe((res: any) => {
+    this.searchService.getSubscriberSearchData().pipe(debounceTime(1000), distinctUntilChanged()).subscribe((res: any) => {
       console.log("11111 ngOnInit() searchQuery===========", res);
       if (res !== "") {
-        this.getVendors();
+        this.getSubscribers();
       }
     });
-    this.getVendors();
+    this.getSubscribers();
   }
 
   ngAfterViewInit() {
-    if (this.vendorsSort && this.vendorsPaginator) {
-      this.vendors.sort = this.vendorsSort;
-      this.vendors.paginator = this.vendorsPaginator;
+    if (this.subscribersSort && this.subscribersPaginator) {
+      this.subscribers.sort = this.subscribersSort;
+      this.subscribers.paginator = this.subscribersPaginator;
     }
   }
 
   /**
-   * @description get vendor list data
+   * @description get subscriber list data
    */
-  getVendors() {
+  getSubscribers() {
     let filterData = {
-      pageNo: this.vendorsPageIndex + 1,
-      limit: this.vendorsPageSize,
+      pageNo: this.subscribersPageIndex + 1,
+      limit: this.subscribersPageSize,
       sortItem: this.sortItem,
       sortOrder: this.sortOrder,
       searchQuery: this.searchQuery,
-      selectedFilter: this.vendorListSelectedFilter
+      suspendSelectedFilter: this.subscriberSuspendSelectedFilter,
+      paymentSelectedFilter: this.subscriberPaymentSelectedFilter
     };
     let postData: ApiParam = {
       data: filterData
@@ -100,8 +120,8 @@ export class SubscriberListComponent implements OnInit {
     this.loadingService.show();
     this.apiService.request("GET_ALL_COMPANY", postData).subscribe((response: ApiResponse) => {
       if (response.isSuccess) {
-        this.vendors.data = response.data.companies;
-        this.vendorsCollectionSize = response.data.totalCount;
+        this.subscribers.data = response.data.companies;
+        this.subscribersCollectionSize = response.data.totalCount;
         this.loadingService.hide();
       }
     },
@@ -111,14 +131,14 @@ export class SubscriberListComponent implements OnInit {
   }
 
   /**
-   * @description get filtered vendor list data
+   * @description get filtered subscriber list data
    * @param event 
    */
-  getNewVendors(event: any) {
+  getNewSubscribers(event: any) {
     console.log("event==========", event);
-    this.vendorsPageIndex = event.pageIndex;
-    this.vendorsPageSize = event.pageSize;
-    this.getVendors();
+    this.subscribersPageIndex = event.pageIndex;
+    this.subscribersPageSize = event.pageSize;
+    this.getSubscribers();
   }
 
   /**
@@ -129,36 +149,36 @@ export class SubscriberListComponent implements OnInit {
     console.log("sort event::::::::::::::", event);
     this.sortItem = event.active;
     this.sortOrder = event.direction;
-    (this.vendorsPaginator as MatPaginator).pageIndex = 0;
-    this.vendorsPageIndex = 0;
+    (this.subscribersPaginator as MatPaginator).pageIndex = 0;
+    this.subscribersPageIndex = 0;
     this.searchQuery = "";
-    this.setVendorSearchData();
-    this.getVendors();
+    this.setSubscriberSearchData();
+    this.getSubscribers();
   }
 
   /**
-   * @description navigating to vendor details page
+   * @description navigating to subscriber details page
    */
   goToDetailsPage(id: any) {
     this.router.navigate([`/subscribers/subscriber-details/${id}`]);
   }
 
   /**
-   * @description get vendor list data
+   * @description get subscriber list data
    */
   onSearchEvent(value: any) {
     this.searchQuery = value;
-    (this.vendorsPaginator as MatPaginator).pageIndex = 0;
-    this.vendorsPageIndex = 0;
-    this.setVendorSearchData();
+    (this.subscribersPaginator as MatPaginator).pageIndex = 0;
+    this.subscribersPageIndex = 0;
+    this.setSubscriberSearchData();
   }
 
   /**
    * @description push data into subject
    */
-  setVendorSearchData() {
+  setSubscriberSearchData() {
     const query = this.searchQuery.trim();
-    this.searchService.setVendorSearchData(query);
+    this.searchService.setSubscriberSearchData(query);
   }
 
   /**
@@ -167,15 +187,45 @@ export class SubscriberListComponent implements OnInit {
   exportToExcel() {
     let postData: ApiParam = {
       data: {
-        vendorId: '123',
+        subscriberId: '123',
         sortItem: this.sortItem,
         sortOrder: this.sortOrder,
         searchQuery: this.searchQuery,
-        selectedFilter: this.vendorListSelectedFilter
+        suspendSelectedFilter: this.subscriberSuspendSelectedFilter,
+        paymentSelectedFilter: this.subscriberPaymentSelectedFilter
       }
     };
     this.loadingService.show();
-    this.apiService.request("VENDORS_EXPORT_TO_EXCEL", postData).subscribe((response: ApiResponse) => {
+    this.apiService.request("SUBSCRIBER_EXPORT_TO_EXCEL", postData).subscribe((response: ApiResponse) => {
+      if (response.isSuccess) {
+        this.link = response.data.link;
+        this.loadingService.hide();
+        if (this.link) {
+          this.apiService.getPreSignedLink(this.link);
+        }
+      }
+    },
+      error => {
+        this.loadingService.hide();
+      });
+  }
+
+  /**
+   * @description export to pdf
+   */
+  exportToPdf() {
+    let postData: ApiParam = {
+      data: {
+        subscriberId: '123',
+        sortItem: this.sortItem,
+        sortOrder: this.sortOrder,
+        searchQuery: this.searchQuery,
+        suspendSelectedFilter: this.subscriberSuspendSelectedFilter,
+        paymentSelectedFilter: this.subscriberPaymentSelectedFilter
+      }
+    };
+    this.loadingService.show();
+    this.apiService.request("SUBSCRIBER_EXPORT_TO_PDF", postData).subscribe((response: ApiResponse) => {
       if (response.isSuccess) {
         this.link = response.data.link;
         this.loadingService.hide();
@@ -192,16 +242,32 @@ export class SubscriberListComponent implements OnInit {
   /**
    * @description on filter selected
    */
-  onFilterSelected(value: any) {
-    console.log("onFilterSelected() value=========", value);
+  onSuspendFilterSelected(value: any) {
+    console.log("onSuspendFilterSelected() value=========", value);
     if (value !== undefined) {
-      this.appStorageService.save('vendor-list-selected-filter', value);
+      this.appStorageService.save('subscriber-suspend-selected-filter', value);
       this.getSelectedFilterData();
-      (this.vendorsPaginator as MatPaginator).pageIndex = 0;
-      this.vendorsPageIndex = 0;
+      (this.subscribersPaginator as MatPaginator).pageIndex = 0;
+      this.subscribersPageIndex = 0;
       this.searchQuery = "";
-      this.setVendorSearchData();
-      this.getVendors();
+      this.setSubscriberSearchData();
+      this.getSubscribers();
+    }
+  }
+
+  /**
+   * @description on filter selected
+   */
+  onPaymentFilterSelected(value: any) {
+    console.log("onPaymentFilterSelected() value=========", value);
+    if (value !== undefined) {
+      this.appStorageService.save('subscriber-payment-selected-filter', value);
+      this.getSelectedFilterData();
+      (this.subscribersPaginator as MatPaginator).pageIndex = 0;
+      this.subscribersPageIndex = 0;
+      this.searchQuery = "";
+      this.setSubscriberSearchData();
+      this.getSubscribers();
     }
   }
 
@@ -209,22 +275,27 @@ export class SubscriberListComponent implements OnInit {
    * @description get selected filtered data
    */
   getSelectedFilterData() {
-    if (this.appStorageService.get('vendor-list-selected-filter') !== null) {
-      this.vendorListSelectedFilter = this.appStorageService.get('vendor-list-selected-filter');
+    if ((this.appStorageService.get('subscriber-suspend-selected-filter') !== null) && (this.appStorageService.get('subscriber-suspend-selected-filter') !== null)) {
+      this.subscriberSuspendSelectedFilter = this.appStorageService.get('subscriber-suspend-selected-filter');
+      this.subscriberPaymentSelectedFilter = this.appStorageService.get('subscriber-payment-selected-filter');
     } else {
-      this.appStorageService.save('vendor-list-selected-filter', "active");
-      this.vendorListSelectedFilter = "active";
+      this.appStorageService.save('subscriber-suspend-selected-filter', "active");
+      this.subscriberSuspendSelectedFilter = "active";
+
+      this.appStorageService.save('subscriber-payment-selected-filter', "monthly");
+      this.subscriberPaymentSelectedFilter = "monthly";
     }
-    console.log("vendor-list-selected-filter===========", this.vendorListSelectedFilter);
+    console.log("subscriber-suspend-selected-filter===========", this.subscriberSuspendSelectedFilter);
+    console.log("subscriber-payment-selected-filter===========", this.subscriberPaymentSelectedFilter);
   }
 
   /**
-   * @description To activate and deactivate vendor account
+   * @description To activate and deactivate subscriber account
    * @param id 
    * @param isActive 
    * @param isActive 
    */
-  activateDeactivateVendor(id: string, isActive: boolean = true, name: string): void {
+  activateDeactivateSubscriber(id: string, isActive: boolean = true, name: string): void {
     const deleteDialogRef = this.dialog.open(ConfirmationDialogComponent, {
       // disableClose: true,
       hasBackdrop: true,
@@ -246,7 +317,7 @@ export class SubscriberListComponent implements OnInit {
           }
         };
         this.loadingService.show();
-        this.apiService.request('DEACTIVATE_VENDOR', param).subscribe((response: ApiResponse) => {
+        this.apiService.request('DEACTIVATE_SUBSCRIBER', param).subscribe((response: ApiResponse) => {
           this.toastService.activateSuccess(response.data);
           this.loadingService.hide();
         },
@@ -259,7 +330,7 @@ export class SubscriberListComponent implements OnInit {
   }
 
   /**
-   * @description reset vendor password
+   * @description reset subscriber password
    * @param id 
    */
   resetPassword(id: any) {
@@ -284,7 +355,7 @@ export class SubscriberListComponent implements OnInit {
           }
         };
         this.loadingService.show();
-        this.apiService.request('RESET_VENDOR_PASSWORD', param).subscribe((response: ApiResponse) => {
+        this.apiService.request('RESET_SUBSCRIBER_PASSWORD', param).subscribe((response: ApiResponse) => {
           this.toastService.activateSuccess(response.data);
           this.loadingService.hide();
         },

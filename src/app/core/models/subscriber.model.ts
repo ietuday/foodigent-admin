@@ -1,21 +1,29 @@
-export class MerchandiseModel {
+export class SubscriberModel {
     _id?: string;
-    name?: string;
+    firstName?: string;
+    lastName?: string;
     userName?: string;
-    grabitValue?: number;
     userId?: string;
-    desc?: string;
+    description?: string;
     email?: string;
+    password?: string;
     type?: string;
+    country?: string;
     city?: string;
     phone?: string;
     age?: string;
     attachments?: Array<any>;
+    salt?: string;
+    reset_password_token?: string;
+    reset_password_expires?: number;
     isVerified?: boolean;
     isLock?: boolean;
     isDeleted?: boolean;
     isAdmin?: boolean;
+    token?: string;
+    verificationToken?: string;
     profileUrl?: string;
+    unseenNotification?: number;
     createdAt?: Date;
     updatedAt?: Date;
 }

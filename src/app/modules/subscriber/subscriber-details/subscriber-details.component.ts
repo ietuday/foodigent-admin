@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductModel } from 'src/app/core/models/product.model';
+import { SubscriberModel } from 'src/app/core/models/subscriber.model';
 import { ApiParam, ApiResponse, ApiService } from 'src/app/core/services/api/api.service';
 import { AuthService } from 'src/app/core/services/authentication/auth/auth.service';
 import { LoadingService } from 'src/app/core/services/loading/loading.service';
@@ -21,7 +21,7 @@ export class SubscriberDetailsComponent implements OnInit {
   productsPageIndex: number = 0;
   productsPageSize: number = 5;
   productsCollectionSize: number = 0;
-  products = new MatTableDataSource<ProductModel>();
+  products = new MatTableDataSource<SubscriberModel>();
   @ViewChild('productsPaginator') productsPaginator?: MatPaginator;
   @ViewChild('productsSort') productsSort?: MatSort;
 
@@ -60,7 +60,7 @@ export class SubscriberDetailsComponent implements OnInit {
   }
 
   /**
-   * @description get vendor list data
+   * @description get subscriber list data
    */
   getOrderDetails(orderId: any) {
     let filterData = {

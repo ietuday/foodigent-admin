@@ -1,6 +1,6 @@
 @import "../../../styles/variables.scss";
 
-.vendor-list-page {
+.subscriber-list-page {
   // 100vh device height
   // 56px top toolbar height
   // 24px bottom toolbar height
@@ -26,7 +26,7 @@ table {
 }
 
 @media (max-width: 800px) {
-  .vendor-list-table {
+  .subscriber-list-table {
     display: flex;
     flex-direction: row;
     overflow-x: scroll;
