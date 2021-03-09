@@ -18,24 +18,8 @@ const routes: Routes = [
                 component: ProfileComponent
             },
             {
-                path: 'vendors',
-                loadChildren: () => import('../vendor/vendor.module').then(res => res.VendorModule)
-            },
-            {
-                path: 'grabits',
-                loadChildren: () => import('../grabit/grabit.module').then(res => res.GrabitModule)
-            },
-            {
-                path: 'rewards',
-                loadChildren: () => import('../reward/reward.module').then(res => res.RewardModule)
-            },
-            {
-                path: 'customers',
-                loadChildren: () => import('../customer/customer.module').then(res => res.CustomerModule)
-            },
-            {
-                path: 'orders',
-                loadChildren: () => import('../order/order.module').then(res => res.OrderModule)
+                path: 'subscribers',
+                loadChildren: () => import('../subscriber/subscriber.module').then(res => res.SubscriberModule)
             },
             {
                 path: 'test',
@@ -43,7 +27,7 @@ const routes: Routes = [
             },
             {
                 path: '',
-                redirectTo: 'vendors',
+                redirectTo: 'subscribers',
                 pathMatch: 'full'
             }
         ]

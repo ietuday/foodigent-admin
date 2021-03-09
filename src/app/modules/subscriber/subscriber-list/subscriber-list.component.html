@@ -1,0 +1,107 @@
+<div fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="subscriber-list-page" fxLayout="column" fxLayoutAlign="space-between stretch">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayout.lt-md="column"
+                fxLayoutAlign.lt-md="start stretch" fxLayoutGap="16px">
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayout.lt-md="column"
+                    fxLayoutAlign.lt-md="start stretch" fxLayoutGap="16px">
+                    <app-search [placeholder]="placeholder" [searchQuery]="searchQuery"
+                        (onInputChange)="onSearchEvent($event)"></app-search>
+                    <app-select [filterName]="suspendFilterName" [selectedValue]="subscriberSuspendSelectedFilter"
+                        [options]="suspendFilterTypes" (onSelectionChange)="onSuspendFilterSelected($event)">
+                    </app-select>
+                    <app-select [filterName]="paymentFilterName" [selectedValue]="subscriberPaymentSelectedFilter"
+                        [options]="paymentFilterTypes" (onSelectionChange)="onPaymentFilterSelected($event)">
+                    </app-select>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+                    <button fxFlex mat-raised-button color="primary" (click)="exportToExcel()">
+                        Export To Excel
+                    </button>
+                    <button fxFlex mat-raised-button color="primary" (click)="exportToPdf()">
+                        Export To Pdf
+                    </button>
+                </div>
+            </div>
+            <div class="subscriber-list-table">
+                <mat-table mat-table [dataSource]="subscribers" matSort matSortActive="name" matSortDisableClear
+                    matSortDirection="asc" (matSortChange)="sortChange($event)">
+
+                    <ng-container matColumnDef="profile">
+                        <mat-header-cell *matHeaderCellDef>profile</mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <img class="user-img" src="../../../../assets/images/users/ashley.jpg" alt="user-image">
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header disableClear> name </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="email">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header disableClear class="email-cell">email
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element" class="email-cell"> {{element.email}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="desc">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header disableClear>desc</mat-header-cell>
+                        <mat-cell *matCellDef="let element" [matTooltip]="element.desc" matTooltipPosition="above">
+                            {{element.desc | truncate : 25}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="isSuspended">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header disableClear>isSuspended</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.isSuspended}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="payment period">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header disableClear>payment period</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{ date | date : 'mediumDate'}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef>action</mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="row wrap" fxLayoutAlign="start center"
+                            fxLayoutGap="5px">
+                            <button mat-icon-button matTooltip="View Subscribers Details" matTooltipPosition="above"
+                                (click)="goToDetailsPage(element._id)">
+                                <mat-icon aria-label="visibility icon">visibility
+                                </mat-icon>
+                            </button>
+                            <div>
+                                <button mat-icon-button [matMenuTriggerFor]="menu"
+                                    aria-label="Example icon-button with a menu">
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item [disabled]="element.isActive"
+                                        (click)="activateDeactivateSubscriber(element._id,element.isActive,element.name)">
+                                        <span>Activate</span>
+                                    </button>
+                                    <button mat-menu-item [disabled]="element.isActive"
+                                        (click)="activateDeactivateSubscriber(element._id,element.isActive,element.name)">
+                                        <span>Deactivate</span>
+                                    </button>
+                                    <button mat-menu-item (click)="resetPassword(element._id)">
+                                        <span>Reset Password</span>
+                                    </button>
+                                </mat-menu>
+                            </div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="subscribersDisplayedColumns"></mat-header-row>
+                    <mat-row mat-row *matRowDef="let row; columns: subscribersDisplayedColumns;"></mat-row>
+                </mat-table>
+            </div>
+        </div>
+        <div>
+            <mat-paginator #subscribersPaginator (page)="getNewSubscribers($event)" [length]="subscribersCollectionSize"
+                [pageSize]="subscribersPageSize" hidePageSize="true" [pageIndex]="subscribersPageIndex"
+                showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+</div>

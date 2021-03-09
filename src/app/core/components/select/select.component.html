@@ -1,9 +1,8 @@
 <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxLayout.lt-md="column" fxLayoutAlign.lt-md="start stretch"
     class="filter-section">
     <mat-form-field class="app-select">
-        <mat-label>Filter</mat-label>
-        <mat-select disableRipple="true" (selectionChange)="onSelection($event.value)"
-            [value]="selectedValue">
+        <mat-label>{{ filterName }}</mat-label>
+        <mat-select disableRipple="true" (selectionChange)="onSelection($event.value)" [value]="selectedValue">
             <mat-option *ngFor="let item of options; let i = index" [value]="item?.value">
                 {{ item?.name }}
             </mat-option>
