@@ -6,6 +6,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./select.component.scss']
 })
 export class SelectComponent implements OnInit {
+  @Input() filterName: string = "";
   @Input() selectedValue: string = "";
   @Input() options: Array<any> = [];
   @Output() onSelectionChange = new EventEmitter();
