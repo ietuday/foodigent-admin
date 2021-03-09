@@ -1,6 +1,6 @@
 @import "../../../styles/variables.scss";
 
-.order-details-page {
+.subscriber-details-page {
   // 100vh device height
   // 56px top toolbar height
   // 24px bottom toolbar height
@@ -15,8 +15,8 @@
   }
 
   .user-info-section,
-  .product-list-section,
-  .igrab-offer-section {
+  .payment-histories-section,
+  .subscriber-activity-section {
     padding: 12px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
@@ -31,7 +31,7 @@
   }
 
   .user-info-section {
-    .customer-name,
+    .subscriber-name,
     .username {
       font-family: $app-century-bold;
       font-size: 18px;
@@ -41,8 +41,8 @@
     }
   }
 
-  .igrab-offer-section {
-    .igrab-offer-heading {
+  .subscriber-activity-section {
+    .subscriber-activity-heading {
       font-family: $app-century-bold;
       font-size: 18px;
       letter-spacing: 0px;
@@ -50,7 +50,7 @@
       color: #191919;
     }
 
-    .igrab-offer-value {
+    .subscriber-activity-value {
       font-family: $app-century-bold;
       font-size: 14px;
       letter-spacing: 0px;
@@ -65,13 +65,6 @@
     height: 120px;
     object-fit: cover;
   }
-
-  .product-img {
-    border-radius: 50% !important;
-    width: 60px !important;
-    height: 60px !important;
-    border: 2px solid rgba(0, 0, 0, 0.12);
-  }
 }
 
 table,
@@ -80,7 +73,7 @@ table,
 }
 
 @media (max-width: 800px) {
-  .product-list-table {
+  .payment-histories-table {
     display: flex;
     flex-direction: row;
     overflow-x: scroll;

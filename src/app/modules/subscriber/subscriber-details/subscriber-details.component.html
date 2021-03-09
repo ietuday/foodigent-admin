@@ -1,40 +1,60 @@
 <div fxLayout="column" fxLayoutAlign="start stretch">
-    <div class="order-details-page" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="10px">
+    <div class="subscriber-details-page" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="10px">
         <div class="user-info-section" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="12px">
             <div fxLayout="row" fxLayoutAlign="start center">
-                <span class="section-heading">Customer Details - </span>
+                <span class="section-heading">Subscriber Details - </span>
             </div>
             <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="12px">
                 <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
                     <img class="profile-photo"
-                        [src]="order?.profileUrl ? order?.profileUrl : 'assets/images/avatars/avatar-3.png'"
+                        [src]="subscriber?.profileUrl ? subscriber?.profileUrl : 'assets/images/avatars/avatar-3.png'"
                         alt="profile photo" />
                 </div>
                 <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center" fxLayoutGap="10px">
-                    <span fxFlex="45" class="customer-name">Abcdefgh Gplwaw</span>
+                    <span fxFlex="45" class="subscriber-name">Abcdefgh Gplwaw</span>
                     <span fxFlex="45" class="username">asdfghghj@gmail.com</span>
                 </div>
             </div>
         </div>
 
-        <div class="product-list-section" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="12px">
+        <div class="subscriber-activity-section" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="12px">
             <div fxLayout="row" fxLayoutAlign="start center">
-                <span class="section-heading">Product Details - </span>
+                <span class="section-heading">Subscriber Activity Details - </span>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+                <div>
+                    <span class="subscriber-activity-heading">Signup date : </span><span
+                        class="subscriber-activity-value">{{ date | date
+                        : 'mediumDate' }}</span>
+                </div>
+                <div>
+                    <span class="subscriber-activity-heading">Cancellation date : </span><span
+                        class="subscriber-activity-value">{{ date |
+                        date : 'mediumDate' }}</span>
+                </div>
+                <div>
+                    <span class="subscriber-activity-heading">Re-signup date : </span><span
+                        class="subscriber-activity-value">{{ date |
+                        date : 'mediumDate' }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-histories-section" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="12px">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="section-heading">Payment Histories Details - </span>
             </div>
             <div fxLayout="column" fxLayoutAlign="start stretch">
-                <div class="product-list-table">
-                    <mat-table mat-table [dataSource]="products">
-                        <ng-container matColumnDef="image">
-                            <mat-header-cell *matHeaderCellDef>image</mat-header-cell>
-                            <mat-cell *matCellDef="let element">
-                                <img class="product-img" src="../../../../assets/images/users/ashley.jpg"
-                                    alt="product-image">
-                            </mat-cell>
-                        </ng-container>
-
+                <div class="payment-histories-table">
+                    <mat-table mat-table [dataSource]="paymentHistoroies">
                         <ng-container matColumnDef="name">
                             <mat-header-cell *matHeaderCellDef>name</mat-header-cell>
                             <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="date">
+                            <mat-header-cell *matHeaderCellDef>date</mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ date | date }} </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="prize">
@@ -43,35 +63,20 @@
                             </mat-cell>
                         </ng-container>
 
-                        <mat-header-row *matHeaderRowDef="productsDisplayedColumns"></mat-header-row>
-                        <mat-row mat-row *matRowDef="let row; columns: productsDisplayedColumns;"></mat-row>
+                        <ng-container matColumnDef="status">
+                            <mat-header-cell *matHeaderCellDef>status</mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.status ? element.status : 'Shipped' }} </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="paymentHistoroiesDisplayedColumns"></mat-header-row>
+                        <mat-row mat-row *matRowDef="let row; columns: paymentHistoroiesDisplayedColumns;"></mat-row>
                     </mat-table>
                 </div>
                 <div>
-                    <mat-paginator #productsPaginator (page)="getNewProducts($event)" [length]="productsCollectionSize"
-                        [pageSize]="productsPageSize" hidePageSize="true" [pageIndex]="productsPageIndex"
-                        showFirstLastButtons>
+                    <mat-paginator #paymentHistoroiesPaginator (page)="getNewPaymentHistories($event)"
+                        [length]="paymentHistoroiesCollectionSize" [pageSize]="paymentHistoroiesPageSize"
+                        hidePageSize="true" [pageIndex]="paymentHistoroiesPageIndex" showFirstLastButtons>
                     </mat-paginator>
-                </div>
-            </div>
-        </div>
-
-        <div class="igrab-offer-section" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="12px">
-            <div fxLayout="row" fxLayoutAlign="start center">
-                <span class="section-heading">iGrab Offer Details - </span>
-            </div>
-            <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
-                <div>
-                    <span class="igrab-offer-heading">Offer Grabbed : </span><span class="igrab-offer-value">999</span>
-                </div>
-                <div>
-                    <span class="igrab-offer-heading">Offer Reedemed : </span><span class="igrab-offer-value">77</span>
-                </div>
-                <div>
-                    <span class="igrab-offer-heading">Total Amount : </span><span class="igrab-offer-value">3456</span>
-                </div>
-                <div>
-                    <span class="igrab-offer-heading">GST : </span><span class="igrab-offer-value">18%</span>
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PaymentHistoryModel } from 'src/app/core/models/payment-history.model';
 import { SubscriberModel } from 'src/app/core/models/subscriber.model';
 import { ApiParam, ApiResponse, ApiService } from 'src/app/core/services/api/api.service';
 import { AuthService } from 'src/app/core/services/authentication/auth/auth.service';
@@ -17,16 +18,17 @@ import { ToastService } from 'src/app/core/services/toast/toast.service';
   styleUrls: ['./subscriber-details.component.scss']
 })
 export class SubscriberDetailsComponent implements OnInit {
-  productsDisplayedColumns: string[] = ['image', 'name', 'prize'];
-  productsPageIndex: number = 0;
-  productsPageSize: number = 5;
-  productsCollectionSize: number = 0;
-  products = new MatTableDataSource<SubscriberModel>();
-  @ViewChild('productsPaginator') productsPaginator?: MatPaginator;
-  @ViewChild('productsSort') productsSort?: MatSort;
+  paymentHistoroiesDisplayedColumns: string[] = ['name', 'date', 'prize', 'status'];
+  paymentHistoroiesPageIndex: number = 0;
+  paymentHistoroiesPageSize: number = 5;
+  paymentHistoroiesCollectionSize: number = 0;
+  paymentHistoroies = new MatTableDataSource<PaymentHistoryModel>();
+  @ViewChild('paymentHistoroiesPaginator') paymentHistoroiesPaginator?: MatPaginator;
+  @ViewChild('paymentHistoroiesSort') paymentHistoroiesSort?: MatSort;
 
-  orderId: any;
-  order: any;
+  subscriberId: any;
+  subscriber?: SubscriberModel;
+  date = new Date();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -40,39 +42,39 @@ export class SubscriberDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('iGrab Admin | Order Details');
+    this.titleService.setTitle('Foodigent Admin | Subscriber Details');
 
     this.activatedRoute.paramMap.subscribe(params => {
-      this.orderId = params.get('id');
-      console.log("this.orderId=============", this.orderId);
+      this.subscriberId = params.get('id');
+      console.log("this.subscriberId=============", this.subscriberId);
 
       // remove comment later when need
-      // this.getOrderDetails(this.orderId);
-      this.getProducts();
+      // this.getSubscriberDetailsById(this.subscriberId);
+      this.getPaymentHistoriesBySubscriber();
     });
   }
 
   ngAfterViewInit() {
-    if (this.productsSort && this.productsPaginator) {
-      this.products.sort = this.productsSort;
-      this.products.paginator = this.productsPaginator;
+    if (this.paymentHistoroiesSort && this.paymentHistoroiesPaginator) {
+      this.paymentHistoroies.sort = this.paymentHistoroiesSort;
+      this.paymentHistoroies.paginator = this.paymentHistoroiesPaginator;
     }
   }
 
   /**
-   * @description get subscriber list data
+   * @description get subscriber details by id
    */
-  getOrderDetails(orderId: any) {
+  getSubscriberDetailsById(subscriberId: any) {
     let filterData = {
-      id: orderId
+      subscriberId: subscriberId
     };
     let postData: ApiParam = {
       data: filterData
     };
     this.loadingService.show();
-    this.apiService.request("GET_ORDER_DETAILS", postData).subscribe((response: ApiResponse) => {
+    this.apiService.request("GET_SUBSCRIBER_DETAILS_BY_ID", postData).subscribe((response: ApiResponse) => {
       if (response.isSuccess) {
-        this.order = response.data;
+        this.subscriber = response.data;
         this.loadingService.hide();
       }
     },
@@ -82,12 +84,13 @@ export class SubscriberDetailsComponent implements OnInit {
   }
 
   /**
-   * @description get product list
+   * @description get payment history by subscriber
    */
-  getProducts() {
+  getPaymentHistoriesBySubscriber() {
     let filterData = {
-      pageNo: this.productsPageIndex + 1,
-      limit: this.productsPageSize
+      subscriberId: this.subscriberId,
+      pageNo: this.paymentHistoroiesPageIndex + 1,
+      limit: this.paymentHistoroiesPageSize
     };
     let postData: ApiParam = {
       data: filterData
@@ -95,8 +98,8 @@ export class SubscriberDetailsComponent implements OnInit {
     this.loadingService.show();
     this.apiService.request("GET_ALL_COMPANY", postData).subscribe((response: ApiResponse) => {
       if (response.isSuccess) {
-        this.products.data = response.data.companies;
-        this.productsCollectionSize = response.data.totalCount;
+        this.paymentHistoroies.data = response.data.companies;
+        this.paymentHistoroiesCollectionSize = response.data.totalCount;
         this.loadingService.hide();
       }
     },
@@ -106,13 +109,13 @@ export class SubscriberDetailsComponent implements OnInit {
   }
 
   /**
-   * @description get next product list
+   * @description get next payment history
    * @param event 
    */
-  getNewProducts(event: any) {
-    this.productsPageIndex = event.pageIndex;
-    this.productsPageSize = event.pageSize;
-    this.getProducts();
+  getNewPaymentHistories(event: any) {
+    this.paymentHistoroiesPageIndex = event.pageIndex;
+    this.paymentHistoroiesPageSize = event.pageSize;
+    this.getPaymentHistoriesBySubscriber();
   }
 
 }

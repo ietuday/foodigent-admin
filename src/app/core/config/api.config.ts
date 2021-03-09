@@ -105,7 +105,7 @@ export class EndpointService {
        * SUBSCRIBER APIS
        */
       { name: "GET_ALL_SUBSCRIBER", url: "subscriber/get-all-subscriber", method: "POST" },
-      { name: "GET_SUBSCRIBER_BY_ID", url: "subscriber/get-subscriber-by-id", method: "POST" },
+      { name: "GET_SUBSCRIBER_DETAILS_BY_ID", url: "subscriber/get-subscriber-details-by-id", method: "POST" },
       { name: "DEACTIVATE_SUBSCRIBER", url: "subscriber/deactivate-subscriber", method: "POST" },
       { name: "UPDATE_SUBSCRIBER", url: "subscriber/update-subscriber", method: "PUT" },
       { name: "RESET_SUBSCRIBER_PASSWORD", url: "subscriber/reset-password", method: "POST" },
