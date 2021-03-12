@@ -20,8 +20,8 @@ export class MenuService {
     private authService: AuthService,
     private appStorage: AppStorageService
   ) {
+    // this.appStorage.save('userType', 'Superadmin');
     this.privacy = this.appStorage.get('userType');
-
     console.log("this.privacy===============", this.privacy);
 
     this.privacy
@@ -35,76 +35,10 @@ export class MenuService {
    */
   public setVerticalMenuItems(privacy: string) {
     switch (privacy) {
-      // case 'public':
-      //   this.dynamicMenus.next(
-      //     verticalMenuItems.map(item => {
-      //       if (item.privacy === 'private' || item.privacy === 'expert' || item.privacy === 'admin' || item.privacy === 'moderator') {
-      //         item.show = false;
-      //         return item;
-      //       } else {
-      //         item.show = true;
-      //         return item;
-      //       }
-      //     })
-      //   );
-      //   break;
-
-      // case 'Registered User':
-      //   this.dynamicMenus.next(
-      //     verticalMenuItems.map(item => {
-      //       if (item.privacy === 'public' || item.privacy === 'private') {
-      //         item.show = this.authService.isLoggedIn();
-      //         return item;
-      //       } else {
-      //         item.show = false;
-      //         return item;
-      //       }
-      //     })
-      //   );
-      //   break;
-
-      // case 'Lawyer': case 'Financial agent': case 'Migration agent': case 'Government': case 'Education provider':
-      //   this.dynamicMenus.next(
-      //     verticalMenuItems.map(item => {
-      //       if (item.privacy === 'public' || item.privacy === 'private' || item.privacy === 'expert') {
-      //         item.show = this.authService.isLoggedIn();
-      //         this.authService.loggedInUser().subscribe((result) => {
-
-      //           if (item.forum) {
-      //             if (result.data.forums.includes(item.forum)) {
-      //               item.show = true;
-      //             } else {
-      //               item.show = false;
-      //             }
-      //           }
-      //         });
-      //         return item;
-      //       } else {
-      //         item.show = !this.authService.isLoggedIn();
-      //         return item;
-      //       }
-      //     })
-      //   );
-      //   break;
-
-      // case 'Moderator':
-      //   this.dynamicMenus.next(
-      //     verticalMenuItems.map(item => {
-      //       if (item.privacy === 'moderator' || item.privacy === 'public' || item.privacy === 'private' || item.privacy === 'expert') {
-      //         item.show = this.authService.isLoggedIn();
-      //         return item;
-      //       } else {
-      //         item.show = false;
-      //         return item;
-      //       }
-      //     })
-      //   );
-      //   break;
-
-      case 'Admin':
+      case 'Superadmin':
         this.dynamicMenus.next(
           verticalMenuItems.map(item => {
-            if (item.privacy === 'admin' || item.privacy === 'moderator' || item.privacy === 'public' || item.privacy === 'private' || item.privacy === 'expert') {
+            if (item.privacy === 'superadmin') {
               item.show = this.authService.isLoggedIn();
               return item;
             } else {
@@ -114,20 +48,6 @@ export class MenuService {
           })
         );
         break;
-
-      // case 'all':
-      //   this.dynamicMenus.next(
-      //     verticalMenuItems.map(item => {
-      //       if (item.privacy === 'public' || item.privacy === 'private' || item.privacy === 'expert') {
-      //         item.show = true;
-      //         return item;
-      //       } else {
-      //         item.show = false;
-      //         return item;
-      //       }
-      //     })
-      //   );
-      //   break;
     }
   }
 
